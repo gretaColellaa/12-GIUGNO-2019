@@ -21,6 +21,8 @@ class Model:
         self._edges = DAO.getEdges(calorie)
         self._grafo.add_nodes_from(self._nodes)
         self._grafo.add_edges_from(self._edges)
+        # for u,v in self._grafo.edges:
+        #     print(self._grafo.get_edge_data(u,v)['weight'])
 
 
     def getNumNodes(self):
@@ -34,5 +36,9 @@ class Model:
         return self._food
 
     def getFoodData(self, food):
-        return sum(data["weight"] for _, _, data in self._grafo.neighbors(food))
+        somma = 0
+        if self._grafo.neighbors(food.food_id):
+            for n in self._grafo.neighbors(food.food_id):
+                somma += self._grafo.get_edge_data(food.food_id, n)['weight']
+        return somma
 

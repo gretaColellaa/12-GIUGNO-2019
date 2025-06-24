@@ -16,6 +16,7 @@ class Controller:
         self._view.txt_result.controls.append(ft.Text(f"il grafo ha {self._model.getNumNodes()} nodi"
                                                       f" e {self._model.getNumEdges()} archi"))
 
+        self._view.update_page()
         food = self._model.getFood()
         food_ordinati = sorted(food, key=lambda x:x.calories, reverse=True)
         for f in food_ordinati:
