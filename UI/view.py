@@ -8,7 +8,7 @@ class View(ft.UserControl):
         self._page = page
         self._page.title = "Template application using MVC and DAO"
         self._page.horizontal_alignment = 'CENTER'
-        self._page.theme_mode = ft.ThemeMode.DARK
+        self._page.theme_mode = ft.ThemeMode.LIGHT
         # controller (it is not initialized. Must be initialized in the main, after the controller is created)
         self._controller = None
         # graphical elements
@@ -25,17 +25,25 @@ class View(ft.UserControl):
 
         #ROW with some controls
         # text field for the name
-        self.txt_name = ft.TextField(
-            label="name",
-            width=200,
-            hint_text="Insert a your name"
+        self.txt_cal = ft.TextField(
+            label="Calorie",
+            width=200
         )
 
         # button for the "hello" reply
-        self.btn_hello = ft.ElevatedButton(text="Hello", on_click=self._controller.handle_hello)
-        row1 = ft.Row([self.txt_name, self.btn_hello],
+        self.btn_ingr = ft.ElevatedButton(text="Ingredienti", on_click=self._controller.handle_grafo)
+        row1 = ft.Row([self.txt_cal, self.btn_ingr],
                       alignment=ft.MainAxisAlignment.CENTER)
+
+        self.ddIngr = ft.Dropdown(label = "Ingrediente")
+        self.btn_dieta = ft.ElevatedButton(text="Dieta Equilibrata", on_click=self._controller.handle_dieta)
+        row2 = ft.Row([self.ddIngr, self.btn_dieta],
+                      alignment=ft.MainAxisAlignment.CENTER)
+
+
         self._page.controls.append(row1)
+        self._page.controls.append(row2)
+
 
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
