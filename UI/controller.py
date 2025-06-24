@@ -20,9 +20,19 @@ class Controller:
         food = self._model.getFood()
         food_ordinati = sorted(food, key=lambda x:x.calories, reverse=True)
         for f in food_ordinati:
+            self._view.ddIngr.options.append(ft.dropdown.Option(f"{str(f)}"))
             self._view.txt_result.controls.append(ft.Text(f"{str(f)}. {self._model.getFoodData(f)}"))
 
             self._view.update_page()
 
     def handle_dieta(self, e):
-        pass
+        if self._view.ddIngr.value is not None:
+            self._view.txt_result.clean()
+            path, cost = self._model.getBestPath(self._view.ddIngr.value)
+            for f in path:
+                self._view.txt_result.controls.append(ft.Text(f"{str(f)}"))
+
+                self._view.update_page()
+
+        else: self._view.create_alert("selezionare un ingrediente")
+
